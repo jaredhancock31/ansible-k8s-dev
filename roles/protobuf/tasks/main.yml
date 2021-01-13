@@ -19,10 +19,10 @@
   unarchive:
     src: "/tmp/{{ protoc_endpoint }}"
     dest: /tmp/protoc
-    remote_src: yes
     mode: 0755
 
 - name: Protoc - copy binary to /usr/local/bin
+  become: yes
   copy:
     src: /tmp/protoc/bin/protoc
     dest: /usr/local/bin/protoc

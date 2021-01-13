@@ -4,14 +4,15 @@
   set_fact:
     protoc_endpoint: "protoc-{{ protoc_version }}-linux-x86_64.zip"
 
-- name: "Go-Lang | Install dependencies"
+- name: "apt | Install dependencies"
   apt:
-    pkg: [ 'curl', 'gcc', 'git', 'findutils', 'make', 'rsync', 'tar', 'wget' ]
+    pkg: [ 'curl', 'gcc', 'git', 'findutils', 'make', 'rsync', 'tar', 'wget', 'unzip' ]
     state: present
   register: apt_result
   until: apt_result is success
   retries: 1
   delay: 2
+  become: yes
 
 - name: "Go-Lang | Define GOARCH"
   set_fact:
