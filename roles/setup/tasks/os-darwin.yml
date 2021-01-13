@@ -2,5 +2,26 @@
 
 - name: "Configure protoc endpoint for MacOS"
   set_fact:
-    protoc_endpoint: "protoc-{{ protoc_version }}-osx-x86_64.zip"
+    protoc_endpoint: "protoc-{{ protoc_ver }}-osx-x86_64.zip"
 
+- name: Mac - Update homebrew
+  homebrew:
+    name: git
+    state: latest
+    update_homebrew: true
+  tags:
+    - brew
+
+- name: Mac - install homebrew packages
+  homebrew:
+    name: '{{ item }}'
+    state: present
+    loop: '{{ homebrew_packages }}'
+  tags:
+    - brew
+
+- name: Mac - install homebrew cask packages
+  command: brew install --cask {{ item }}
+  loop: '{{ homebrew_cask_packages }}'
+  tags:
+    - brew

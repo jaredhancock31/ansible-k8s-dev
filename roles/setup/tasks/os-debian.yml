@@ -2,11 +2,11 @@
 
 - name: "Configure protoc endpoint for Debian"
   set_fact:
-    protoc_endpoint: "protoc-{{ protoc_version }}-linux-x86_64.zip"
+    protoc_endpoint: "protoc-{{ protoc_ver }}-linux-x86_64.zip"
 
 - name: "apt | Install dependencies"
   apt:
-    pkg: [ 'curl', 'gcc', 'git', 'findutils', 'make', 'rsync', 'tar', 'wget', 'unzip' ]
+    pkg: [ 'libzmq3-dev' ]
     state: present
   register: apt_result
   until: apt_result is success
