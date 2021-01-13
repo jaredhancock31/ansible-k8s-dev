@@ -39,12 +39,14 @@
 #  become: yes
   roles:
     - setup
-#    - andrewrothstein.protoc # check on mac
+#    - andrewrothstein.protoc # check on mac, needs a 'protoc_platform: osx' variable
     - fubarhouse.golang
     - andrewrothstein.kubectl
     - andrewrothstein.kubebuilder
     - diodonfrost.terraform # check if this works on mac
-
+    - andrewrothstein.k9s # TODO need to set k9s_os accordingly
+#    - andrewrothstein.openjdk
+#    - andrewrothstein.kops
 # TODO:
 # - detect zsh/sh and config profile
 # - repair, refresh shell after golang
@@ -54,3 +56,4 @@
 # - zmq
 # - aws cli
 # - terraform
+# https://github.com/vaulttec/ansible-role-zsh
