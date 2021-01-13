@@ -1,0 +1,31 @@
+---
+
+# # needed in meta/main.yml?
+#dependencies:
+#  - role: setup
+
+- name: Protoc - download
+  hosts: localhost
+  get_url:
+    url: "https://github.com/protocolbuffers/protobuf/releases/download/v{{ protoc_version }}/{{ protoc_endpoint }}"
+    dest: "/tmp/{{ protoc_endpoint }}"
+    validate_certs: no
+
+- name: Protoc - check unpack directory
+  file:
+    path: /tmp/protoc
+    state: directory
+
+- name: Protoc - unpack
+  unarchive:
+    src: "/tmp/{{ protoc_endpoint }}"
+    dest: /tmp/protoc
+    remote_src: yes
+    mode: 0755
+
+- name: Protoc - copy binary to /usr/local/bin
+  copy:
+    src: /tmp/protoc/bin/protoc
+    dest: /usr/local/bin/protoc
+    mode: 0755
+

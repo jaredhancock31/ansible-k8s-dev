@@ -1,0 +1,41 @@
+---
+
+- name: PLAY
+  hosts: localhost
+  vars:
+
+    # LIBRARY VERSIONS
+    go_version: 1.14.2
+    protoc_version: 3.11.2
+    proto_gen_go_version: 1.3.2
+    helm_version: 3.3.4
+    mockgen_version: 1.4.4
+    kubebuilder_version: 2.2.0
+    controller_gen_version: 0.2.5
+
+    # fubarhouse.golang variables
+    GO111MODULE: "on"
+    go_install_clean: true
+    golang_shell_profile: /home/{{ ansible_user_id }}/.bashrc # shell prof must be absolute path
+    mode_codebase: 0755
+    mode_workspace: 0755
+    # go libraries
+    go_get:
+      - name: controller-gen
+        url: "sigs.k8s.io/controller-tools/cmd/controller-gen@v{{ controller_gen_version }}"
+        modules: true
+      - name: mock-gen
+        url: "github.com/golang/mock/mockgen@v{{ mockgen_version }}"
+        modules: true
+      - name: kind
+        url: sigs.k8s.io/kind
+        modules: true
+      - name: protoc-gen-go
+        url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
+        modules: true
+#  become: yes
+  roles:
+    - setup
+    - protobuf
+    - fubarhouse.golang
+

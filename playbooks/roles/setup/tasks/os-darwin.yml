@@ -1,0 +1,6 @@
+---
+
+- name: "Configure protoc endpoint for MacOS"
+  set_fact:
+    protoc_endpoint: "protoc-{{ protoc_version }}-osx-x86_64.zip"
+
