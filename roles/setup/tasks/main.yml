@@ -1,7 +1,5 @@
 ---
 
-- name:
-
 - name: Include OS-specific tasks (MAC OS)
   include_tasks: os-darwin.yml
   when: ansible_os_family == "Darwin"
