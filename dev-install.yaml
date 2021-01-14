@@ -2,45 +2,46 @@
 
 - name: PLAY
   hosts: localhost
+  connection: local
+#  become_user: ubuntu
+#  become: yes
   vars:
-
     # LIBRARY VERSIONS
-    go_version: 1.14.2
     protoc_ver: 3.11.2
     proto_gen_go_version: 1.3.2
     helm_version: 3.3.4
     mockgen_version: 1.4.4
     controller_gen_version: 0.2.5
-    # kubernetes variables
     kubectl_ver: v1.18.8
     kubebuilder_ver: 2.2.0
 
-    # fubarhouse.golang variables
-    GO111MODULE: "on"
-    go_install_clean: true
-    golang_shell_profile: /home/{{ ansible_user_id }}/.bashrc # shell prof must be absolute path
-    mode_codebase: 0755
-    mode_workspace: 0755
-    # go libraries
-    go_get:
-      - name: controller-gen
-        url: "sigs.k8s.io/controller-tools/cmd/controller-gen@v{{ controller_gen_version }}"
-        modules: true
-      - name: mock-gen
-        url: "github.com/golang/mock/mockgen@v{{ mockgen_version }}"
-        modules: true
-      - name: kind
-        url: sigs.k8s.io/kind
-        modules: true
-      - name: protoc-gen-go
-        url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
-        modules: true
-
-#  become: yes
   roles:
     - setup
 #    - andrewrothstein.protoc # check on mac, needs a 'protoc_platform: osx' variable
-    - fubarhouse.golang
+    - fubarhouse.golang:
+      become: yes
+      vars:
+        go_version: 1.14.2
+        GO111MODULE: "on"
+        fubarhouse_user: ubuntu # make this dynamic
+        go_install_clean: true
+        golang_shell_profile: /home/{{ remote_user }}/.bashrc # shell prof must be absolute path
+        mode_codebase: 0755
+        mode_workspace: 0755
+        # go libraries
+        go_get:
+          - name: controller-gen
+            url: "sigs.k8s.io/controller-tools/cmd/controller-gen@v{{ controller_gen_version }}"
+            modules: true
+          - name: mock-gen
+            url: "github.com/golang/mock/mockgen@v{{ mockgen_version }}"
+            modules: true
+          - name: kind
+            url: sigs.k8s.io/kind
+            modules: true
+          - name: protoc-gen-go
+            url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
+            modules: true
     - andrewrothstein.kubectl
     - andrewrothstein.kubebuilder
     - diodonfrost.terraform # check if this works on mac
@@ -57,3 +58,5 @@
 # - aws cli
 # - terraform
 # https://github.com/vaulttec/ansible-role-zsh
+#  PATH=$PATH:/usr/local/kubebuilder/bin:/usr/local/go/bin:/usr/local/protoc/bin:/root/go/bin
+
