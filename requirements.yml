@@ -1,0 +1,6 @@
+- name: fubarhouse.golang
+- name: andrewrothstein.kubectl
+- name: andrewrothstein.kubebuilder
+- name: diodonfrost.terraform
+- name: andrewrothstein.k9s
+- name: andrewrothstein.kops
