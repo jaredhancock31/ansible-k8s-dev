@@ -1,4 +1,4 @@
-# dev-ansible
+# ansible-k8s-dev
 
 Playbook to install libs needed for k8s development
 
@@ -14,7 +14,8 @@ ansible-playbook dev-install.yml
 ```
 
 ### TODOs
-- repair shell afterward completion
+- be flexible with bash/zsh
+- repair shell after completion for root-sensitive roles
 - awscli
 - java
 - docker
