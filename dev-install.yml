@@ -1,10 +1,4 @@
 ---
-- name: get the username running the deploy
-  become: false
-  local_action: command whoami
-  register: username_on_the_host
-
-
 - name: PLAY
   hosts: localhost
   connection: local
@@ -19,6 +13,7 @@
     controller_gen_version: 0.2.5
     kubectl_ver: v1.18.8
     kubebuilder_ver: 2.2.0
+    user: {{ ansible_user_id }}
 
   roles:
     - role: setup
@@ -29,7 +24,7 @@
         go_version: 1.14.2
         GO111MODULE: "on"
         GOPATH: /home/{{ fubarhouse_user }}/go
-        fubarhouse_user: username_on_the_host # make this dynamic
+        fubarhouse_user:  user
         go_install_clean: true
         golang_shell_profile: /home/{{ fubarhouse_user }}/.bashrc # shell prof must be absolute path
         mode_codebase: 0755
