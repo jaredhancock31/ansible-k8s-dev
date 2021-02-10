@@ -12,16 +12,24 @@
   tags:
     - brew
 
-- name: Mac - install homebrew packages
+- name: Mac - Install zeromq
   homebrew:
-    name: '{{ item }}'
-    state: present
-    loop: '{{ homebrew_packages }}'
+    name: zeromq
+    state: latest
+    update_homebrew: true
   tags:
     - brew
 
-- name: Mac - install homebrew cask packages
-  command: brew install --cask {{ item }}
-  loop: '{{ homebrew_cask_packages }}'
-  tags:
-    - brew
+# - name: Mac - install homebrew packages
+#   homebrew:
+#     name: '{{ item }}'
+#     state: present
+#     loop: '{{ homebrew_packages }}'
+#   tags:
+#     - brew
+
+# - name: Mac - install homebrew cask packages
+#   command: brew install --cask {{ item }}
+#   loop: '{{ homebrew_cask_packages }}'
+#   tags:
+#     - brew

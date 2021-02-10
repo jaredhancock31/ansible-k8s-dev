@@ -12,6 +12,8 @@
       - gcc
       - pkg-config
       - docker
+      - zsh
+      - zsh-syntax-highlighting
     state: present
 
 - name: Include OS-specific tasks (MAC OS)
