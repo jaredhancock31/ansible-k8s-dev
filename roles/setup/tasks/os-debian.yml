@@ -1,10 +1,10 @@
 ---
 
-- name: "Configure protoc endpoint for Debian"
+- name: "Debian | Configure protoc endpoint for Debian"
   set_fact:
     protoc_endpoint: "protoc-{{ protoc_ver }}-linux-x86_64.zip"
 
-- name: "apt | Install dependencies"
+- name: "Debian | Install dependencies"
   apt:
     pkg: [ 'libzmq3-dev', 'tar' ]
     state: present
@@ -13,12 +13,12 @@
   retries: 1
   delay: 2
 
-- name: "Go-Lang | Define GOARCH"
+- name: "Debian | Define GOARCH"
   set_fact:
     GOARCH: "amd64"
   when: GOARCH is not defined
 
-- name: "Go-Lang | Define GOOS"
+- name: "Debian | Define GOOS"
   set_fact:
     GOOS: "linux"
   when: GOOS is not defined

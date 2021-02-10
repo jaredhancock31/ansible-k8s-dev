@@ -1,10 +1,10 @@
 ---
 
-- name: "Configure protoc endpoint for MacOS"
+- name: "MacOS | Configure protoc endpoint for MacOS"
   set_fact:
     protoc_endpoint: "protoc-{{ protoc_ver }}-osx-x86_64.zip"
 
-- name: Mac - Update homebrew
+- name: MacOS | Update homebrew
   homebrew:
     name: git
     state: latest
@@ -12,31 +12,17 @@
   tags:
     - brew
 
-- name: Mac - Install zeromq
+- name: MacOS | Install zeromq
   homebrew:
     name: zeromq
     state: latest
   tags:
     - brew
 
-- name: Mac - Install gnu-tar
+- name: MacOS | Install gnu-tar
   homebrew:
     name: gnu-tar
     state: latest
   tags:
     - brew
   # export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH" 
-
-# - name: Mac - install homebrew packages
-#   homebrew:
-#     name: '{{ item }}'
-#     state: present
-#     loop: '{{ homebrew_packages }}'
-#   tags:
-#     - brew
-
-# - name: Mac - install homebrew cask packages
-#   command: brew install --cask {{ item }}
-#   loop: '{{ homebrew_cask_packages }}'
-#   tags:
-#     - brew
