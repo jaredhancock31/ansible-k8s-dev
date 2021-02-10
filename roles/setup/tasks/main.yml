@@ -2,6 +2,7 @@
 
 # package module is supposedly platform agnostic
 - name: Install common utils
+  become: yes
   package:
     name:
       - curl
