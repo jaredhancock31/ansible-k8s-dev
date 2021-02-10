@@ -16,9 +16,16 @@
   homebrew:
     name: zeromq
     state: latest
-    update_homebrew: true
   tags:
     - brew
+
+- name: Mac - Install gnu-tar
+  homebrew:
+    name: gnu-tar
+    state: latest
+  tags:
+    - brew
+  # export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH" 
 
 # - name: Mac - install homebrew packages
 #   homebrew:

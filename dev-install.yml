@@ -12,18 +12,25 @@
     controller_gen_version: 0.2.5
     kubectl_ver: v1.18.8
     kubebuilder_ver: 2.2.0
+    # This variable gives us a boolean for deciding whether or not to become root
+    should_be_root:  "{{ true if ansible_pkg_mgr != 'brew' else false }}"
 
   roles:
     - role: setup
-#    - role: andrewrothstein.protoc # check on mac, needs a 'protoc_platform: osx' variable
+      become: "{{ should_be_root }}"
+    # - role: andrewrothstein.protoc # check on mac, needs a 'protoc_platform: osx' variable
+    #   vars:
+    #     protoc_platform: {{ linux-x86_64 if ansible_pkg_mgr != 'brew' else osx-x86_64 }}
+        # protoc_ver: 3.11.2
     - role: fubarhouse.golang
-      become: yes
+      become: "{{ should_be_root }}"
       vars:
         go_version: 1.14.2
         GO111MODULE: "on"
-        GOPATH: /home/{{ ansible_user }}/go
+        GOPATH: "{{ ansible_env.HOME }}/{{ ansible_user_id }}/go"
         go_install_clean: true
-        golang_shell_profile: /home/{{ ansible_user }}/.profile # shell prof must be absolute path
+        # shell prof must be absolute path, need to parameterize it for mac
+        golang_shell_profile: "{{ ansible_env.HOME }}/{{ ansible_user_id }}/.profile"
         mode_codebase: 0755
         mode_workspace: 0755
         # go libraries

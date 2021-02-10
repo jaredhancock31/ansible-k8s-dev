@@ -6,13 +6,12 @@
 
 - name: "apt | Install dependencies"
   apt:
-    pkg: [ 'libzmq3-dev' ]
+    pkg: [ 'libzmq3-dev', 'tar' ]
     state: present
   register: apt_result
   until: apt_result is success
   retries: 1
   delay: 2
-  become: yes
 
 - name: "Go-Lang | Define GOARCH"
   set_fact:
