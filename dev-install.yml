@@ -28,7 +28,7 @@
         go_version: 1.14.2
         GO111MODULE: "on"
         GOPATH: "{{ ansible_env.HOME }}/go"
-        go_install_clean: true
+        go_install_clean: false
         # shell prof must be absolute path, need to parameterize it for mac
         golang_shell_profile: "{{ ansible_env.HOME }}/.profile"
         mode_codebase: 0755
@@ -48,11 +48,11 @@
             url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
             modules: true
     - role: andrewrothstein.kubectl
-      vars:
-        kubectl_platform: "{{ amd64 if ansible_pkg_mgr != 'homebrew' else darwin }}"
+      # vars:
+      #   kubectl_platform: "{{ amd64 if ansible_pkg_mgr != 'homebrew' else darwin }}"
     - role: andrewrothstein.kubebuilder
-      vars:
-        kubebuilder_os: "{{ linux if ansible_pkg_mgr != 'homebrew' else darwin }}"
+      # vars:
+      #   kubebuilder_os: "{{ linux if ansible_pkg_mgr != 'homebrew' else darwin }}"
     - role: diodonfrost.terraform # check if this works on mac
       become: "{{ should_be_root }}"
     - role: andrewrothstein.k9s # TODO need to set k9s_os accordingly
