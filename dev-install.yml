@@ -48,10 +48,16 @@
             url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
             modules: true
     - role: andrewrothstein.kubectl
+      vars:
+        kubectl_platform: "{{ amd64 if ansible_pkg_mgr != 'homebrew' else darwin }}"
     - role: andrewrothstein.kubebuilder
+      vars:
+        kubebuilder_os: "{{ linux if ansible_pkg_mgr != 'homebrew' else darwin }}"
     - role: diodonfrost.terraform # check if this works on mac
       become: "{{ should_be_root }}"
     - role: andrewrothstein.k9s # TODO need to set k9s_os accordingly
+      vars:
+        k9s_os: "{{ Linux if ansible_pkg_mgr != 'homebrew' else Darwin }}"
 #    - andrewrothstein.openjdk
 #    - andrewrothstein.kops
 
