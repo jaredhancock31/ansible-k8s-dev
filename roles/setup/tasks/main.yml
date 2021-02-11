@@ -2,7 +2,6 @@
 
 # package module is supposedly platform agnostic
 - name: Install common utils
-  become: "{{ should_be_root }}"
   package:
     name:
       - curl
@@ -22,7 +21,6 @@
 
 - name: Include OS-specific tasks (Debian)
   include_tasks: os-debian.yml
-  become: yes
   when: ansible_os_family == "Debian"
 
 - name: Protoc | download

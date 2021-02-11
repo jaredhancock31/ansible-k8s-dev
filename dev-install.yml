@@ -18,7 +18,7 @@
   roles:
     - role: setup
       become: "{{ should_be_root }}"
-    # - role: andrewrothstein.protoc # check on mac, needs a 'protoc_platform: osx' variable
+    # - role: andrewrothstein.protoc # this doesn't have a version target old enough for what we need
     #   vars:
     #     protoc_platform: {{ linux-x86_64 if ansible_pkg_mgr != 'brew' else osx-x86_64 }}
         # protoc_ver: 3.11.2
