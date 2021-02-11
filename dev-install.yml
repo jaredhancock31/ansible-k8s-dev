@@ -27,10 +27,10 @@
       vars:
         go_version: 1.14.2
         GO111MODULE: "on"
-        GOPATH: "{{ ansible_env.HOME }}/{{ ansible_user_id }}/go"
+        GOPATH: "{{ ansible_env.HOME }}/go"
         go_install_clean: true
         # shell prof must be absolute path, need to parameterize it for mac
-        golang_shell_profile: "{{ ansible_env.HOME }}/{{ ansible_user_id }}/.profile"
+        golang_shell_profile: "{{ ansible_env.HOME }}/.profile"
         mode_codebase: 0755
         mode_workspace: 0755
         # go libraries
