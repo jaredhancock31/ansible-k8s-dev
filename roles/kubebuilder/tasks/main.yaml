@@ -1,14 +1,13 @@
 
-- name: debug stuffs
-  debug:
-    msg: 
-    - "os_family? -- ansible_facts['os_family']"
-    - "ansible_os_family : -- {{ ansible_os_family }}"
-
 - name: MacOS | Install kubebuilder
   homebrew:
     name: kubebuilder
     state: latest
   tags:
     - brew
-  when: ansible_facts['os_family'] = "Darwin"
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name: Debian | Install kubebuilder
+  include_role:
+    name: andrewrothstein.kubebuilder
+    when: ansible_facts['os_family'] != "Darwin"

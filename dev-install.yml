@@ -48,11 +48,7 @@
     - role: andrewrothstein.kubectl
       when: ansible_facts['os_family'] != "Darwin"
 
-    - role: kubebuilder
-      when: ansible_facts['os_family'] == "Darwin"
-
-    - role: andrewrothstein.kubebuilder
-      when: ansible_facts['os_family'] != "Darwin"
+    - role: kubebuilder 
 
     - role: andrewrothstein.k9s
       when: ansible_facts['os_family'] != "Darwin"
