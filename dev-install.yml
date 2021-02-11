@@ -18,14 +18,10 @@
   roles:
     - role: setup
       become: "{{ should_be_root }}"
-    # - role: andrewrothstein.protoc # this doesn't have a version target old enough for what we need
-    #   vars:
-    #     protoc_platform: {{ linux-x86_64 if ansible_pkg_mgr != 'brew' else osx-x86_64 }}
-        # protoc_ver: 3.11.2
     - role: fubarhouse.golang
       become: yes
       vars:
-        go_version: 1.14.2
+        # go_version: 1.14.2
         GO111MODULE: "on"
         GOPATH: "{{ ansible_env.HOME }}/go"
         go_install_clean: false
@@ -48,18 +44,13 @@
             url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
             modules: true
     - role: andrewrothstein.kubectl
-      # vars:
-      #   kubectl_platform: "{{ amd64 if ansible_pkg_mgr != 'homebrew' else darwin }}"
+      when: ansible_os_family != "Darwin"
     - role: andrewrothstein.kubebuilder
-      # vars:
-      #   kubebuilder_os: "{{ linux if ansible_pkg_mgr != 'homebrew' else darwin }}"
-    - role: diodonfrost.terraform # check if this works on mac
+      when: ansible_os_family != "Darwin"
+    - role: andrewrothstein.k9s
+      when: ansible_os_family != "Darwin"
+    - role: diodonfrost.terraform
       become: "{{ should_be_root }}"
-    - role: andrewrothstein.k9s # TODO need to set k9s_os accordingly
-      vars:
-        k9s_os: "{{ Linux if ansible_pkg_mgr != 'homebrew' else Darwin }}"
-#    - andrewrothstein.openjdk
-#    - andrewrothstein.kops
 
 # https://github.com/vaulttec/ansible-role-zsh
 #  PATH=$PATH:/usr/local/kubebuilder/bin:/usr/local/go/bin:/usr/local/protoc/bin:/root/go/bin

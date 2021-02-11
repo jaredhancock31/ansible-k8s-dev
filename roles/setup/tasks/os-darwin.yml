@@ -12,6 +12,20 @@
   tags:
     - brew
 
+- name: MacOS | Install kubectl
+  homebrew:
+    name: kubectl
+    state: latest
+  tags:
+    - brew
+
+- name: MacOS | Install kubebuilder
+  homebrew:
+    name: kubectl
+    state: latest
+  tags:
+    - brew
+
 - name: MacOS | Install zeromq
   homebrew:
     name: zeromq
@@ -26,3 +40,10 @@
   tags:
     - brew
   # export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH" 
+
+- name: MacOS | Install k9s
+  homebrew:
+    name: k9s
+    state: latest
+  tags:
+    - brew
