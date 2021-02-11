@@ -10,4 +10,4 @@
 - name: Debian | Install kubebuilder
   include_role:
     name: andrewrothstein.kubebuilder
-    when: ansible_facts['os_family'] != "Darwin"
+  when: ansible_facts['os_family'] != "Darwin"
