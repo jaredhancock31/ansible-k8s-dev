@@ -50,7 +50,7 @@
     - role: andrewrothstein.kubectl
     - role: andrewrothstein.kubebuilder
     - role: diodonfrost.terraform # check if this works on mac
-      become: yes
+      become: "{{ should_be_root }}"
     - role: andrewrothstein.k9s # TODO need to set k9s_os accordingly
 #    - andrewrothstein.openjdk
 #    - andrewrothstein.kops
