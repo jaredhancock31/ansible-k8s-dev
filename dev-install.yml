@@ -23,7 +23,7 @@
     #     protoc_platform: {{ linux-x86_64 if ansible_pkg_mgr != 'brew' else osx-x86_64 }}
         # protoc_ver: 3.11.2
     - role: fubarhouse.golang
-      become: "{{ should_be_root }}"
+      become: yes
       vars:
         go_version: 1.14.2
         GO111MODULE: "on"
