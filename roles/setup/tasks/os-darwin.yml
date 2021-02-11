@@ -19,8 +19,6 @@
   tags:
     - brew
 
-
-
 - name: MacOS | Install zeromq
   homebrew:
     name: zeromq

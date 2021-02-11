@@ -26,7 +26,7 @@
         GO111MODULE: "on"
         GOPATH: "{{ ansible_env.HOME }}/go"
         go_install_clean: false
-        # shell prof must be absolute path, need to parameterize it for mac
+        # shell prof must be absolute path, need to parameterize or make dynamic
         golang_shell_profile: "{{ ansible_env.HOME }}/.profile"
         mode_codebase: 0755
         mode_workspace: 0755
@@ -44,16 +44,21 @@
           - name: protoc-gen-go
             url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
             modules: true
+
     - role: andrewrothstein.kubectl
-      when: ansible_os_family != "Darwin"
+      when: ansible_facts['os_family'] != "Darwin"
+
     - role: kubebuilder
-      when: ansible_os_family == "Darwin"
+      when: ansible_facts['os_family'] == "Darwin"
+
     - role: andrewrothstein.kubebuilder
-      when: ansible_os_family != "Darwin"
+      when: ansible_facts['os_family'] != "Darwin"
+
     - role: andrewrothstein.k9s
-      when: ansible_os_family != "Darwin"
-    - role: diodonfrost.terraform
-      become: "{{ should_be_root }}"
+      when: ansible_facts['os_family'] != "Darwin"
+
+    # - role: diodonfrost.terraform
+    #   become: "{{ should_be_root }}"
 
 # https://github.com/vaulttec/ansible-role-zsh
 #  PATH=$PATH:/usr/local/kubebuilder/bin:/usr/local/go/bin:/usr/local/protoc/bin:/root/go/bin
