@@ -13,7 +13,7 @@
     kubectl_ver: v1.18.8
     kubebuilder_ver: 2.2.0
     # This variable gives us a boolean for deciding whether or not to become root
-    should_be_root:  "{{ true if ansible_pkg_mgr != 'brew' else false }}"
+    should_be_root:  "{{ true if ansible_pkg_mgr != 'homebrew' else false }}"
 
   roles:
     - role: setup
