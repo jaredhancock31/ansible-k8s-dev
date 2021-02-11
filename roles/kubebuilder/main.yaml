@@ -1,0 +1,8 @@
+
+- name: MacOS | Install kubebuilder
+  homebrew:
+    name: kubebuilder
+    state: latest
+  tags:
+    - brew
+  when: ansible_os_family = "Darwin"
