@@ -2,7 +2,9 @@
 
 - name: debug stuff
   debug:
-    msg: "should be root? -- {{ should_be_root }}"
+    msg: 
+    - "should be root? -- {{ should_be_root }}"
+    - "what is the pkg mgr -- {{ ansible_pkg_mgr }}"
 
 # package module is supposedly platform agnostic
 - name: Install common utils
