@@ -21,7 +21,7 @@
 
 - name: MacOS | Install kubebuilder
   homebrew:
-    name: kubectl
+    name: kubebuilder
     state: latest
   tags:
     - brew
