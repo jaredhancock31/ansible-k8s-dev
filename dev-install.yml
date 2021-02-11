@@ -20,6 +20,7 @@
       become: "{{ should_be_root }}"
     - role: fubarhouse.golang
       become: yes
+      
       vars:
         # go_version: 1.14.2
         GO111MODULE: "on"
@@ -43,6 +44,14 @@
           - name: protoc-gen-go
             url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
             modules: true
+      post_tasks:
+        - name: MacOS | Install kubebuilder
+          homebrew:
+            name: kubebuilder
+            state: latest
+          tags:
+            - brew
+          when: ansible_os_family = "Darwin"
     - role: andrewrothstein.kubectl
       when: ansible_os_family != "Darwin"
     - role: andrewrothstein.kubebuilder

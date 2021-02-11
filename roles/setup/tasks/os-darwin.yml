@@ -19,12 +19,7 @@
   tags:
     - brew
 
-- name: MacOS | Install kubebuilder
-  homebrew:
-    name: kubebuilder
-    state: latest
-  tags:
-    - brew
+
 
 - name: MacOS | Install zeromq
   homebrew:
