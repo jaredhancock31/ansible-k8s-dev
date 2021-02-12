@@ -17,13 +17,11 @@
     zsh_user: "{{ ansible_user_id }}"
     zsh_user_group: "{% if ansible_os_family == 'Darwin' %}staff{% else %}{{ zsh_user }}{% endif %}"
     zshrc_path: "{{ ansible_env.HOME }}/.zshrc"
+    zsh_ohmy_theme: agnoster
     GOPATH: "{{ ansible_env.HOME }}/go"
 
   roles:
     - role: vaulttec.zsh
-      become: "{{ should_be_root }}"
-    # - role: brianhartsock.zsh
-    #   become: "{{ should_be_root }}"
     - role: setup
       become: "{{ should_be_root }}"
     - role: fubarhouse.golang

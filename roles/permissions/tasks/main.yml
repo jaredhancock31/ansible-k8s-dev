@@ -1,3 +1,9 @@
+- name: Set zshrc directory permissions
+  file:
+    name: "{{ zshrc_path }}"
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user_group }}"
+  changed_when: false
 
 - name: Set GOPATH directory permissions
   file:
@@ -22,5 +28,16 @@
 - name: Export GOPRIVATE in zshrc
   lineinfile:
     dest: "{{ zshrc_path }}"
-    line: "GOPRIVATE=wwwin-github.cisco.com/slimshady"
+    line: "export GOPRIVATE=wwwin-github.cisco.com/slimshady"
     state: present
+
+- name: Get path to ZSH
+  command: which zsh
+  register: zsh_path
+  changed_when: no
+  check_mode: no
+
+- name: Switch to zsh
+  user:
+    name: "{{ zsh_user }}"
+    shell: "{{ zsh_path.stdout }}"
