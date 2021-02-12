@@ -1,17 +1,17 @@
-- name: Set Home directory permissions
+- name: Set zshrc directory permissions
   file:
-    name: "{{ ansible_env.HOME }}"
+    name: "{{ zshrc_path }}"
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user_group }}"
+  changed_when: false
+
+- name: Set oh-my-zsh directory permissions
+  file:
+    name: "{{ ansible_env.HOME }}/.oh-my-zsh"
     owner: "{{ zsh_user }}"
     group: "{{ zsh_user_group }}"
     recurse: yes
   changed_when: false
-
-# - name: Set zshrc directory permissions
-#   file:
-#     name: "{{ zshrc_path }}"
-#     owner: "{{ zsh_user }}"
-#     group: "{{ zsh_user_group }}"
-#   changed_when: false
 
 - name: Set GOPATH directory permissions
   file:
