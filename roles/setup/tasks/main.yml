@@ -22,6 +22,7 @@
       - gcc
       - pkg-config
       - docker
+      - vim
     state: present
 
 - name: Include OS-specific tasks (MAC OS)

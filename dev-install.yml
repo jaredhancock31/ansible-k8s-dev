@@ -20,8 +20,10 @@
     GOPATH: "{{ ansible_env.HOME }}/go"
 
   roles:
-    - role: brianhartsock.zsh
+    - role: vaulttec.zsh
       become: "{{ should_be_root }}"
+    # - role: brianhartsock.zsh
+    #   become: "{{ should_be_root }}"
     - role: setup
       become: "{{ should_be_root }}"
     - role: fubarhouse.golang
@@ -49,7 +51,6 @@
           - name: protoc-gen-go
             url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
             modules: true
-    # repair perms, chown GOPATH with user
     
     - role: andrewrothstein.kubectl
       when: ansible_facts['os_family'] != "Darwin"
