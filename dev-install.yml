@@ -17,7 +17,7 @@
     zsh_user: "{{ ansible_user_id }}"
     zsh_user_group: "{% if ansible_os_family == 'Darwin' %}staff{% else %}{{ zsh_user }}{% endif %}"
     zshrc_path: "{{ ansible_env.HOME }}/.zshrc"
-    zsh_ohmy_theme: agnoster
+    zsh_ohmy_theme: clean
     GOPATH: "{{ ansible_env.HOME }}/go"
 
   roles:
