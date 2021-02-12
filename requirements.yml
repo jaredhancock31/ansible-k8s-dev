@@ -1,3 +1,4 @@
+- name: vaulttec.zsh
 - name: brianhartsock.zsh
 - name: fubarhouse.golang
 - name: andrewrothstein.kubectl
