@@ -1,10 +1,15 @@
 ---
 
-- name: debug stuff
-  debug:
-    msg: 
-    - "should be root? -- {{ should_be_root }}"
-    - "what is the pkg mgr -- {{ ansible_pkg_mgr }}"
+# - name: debug stuff
+#   debug:
+#     msg: 
+#     - "should be root? -- {{ should_be_root }}"
+#     - "what is the pkg mgr -- {{ ansible_pkg_mgr }}"
+
+- name: Update package cache
+  package:
+    update_cache: yes
+  when: ansible_os_family != 'Darwin'
 
 # package module is supposedly platform agnostic
 - name: Install common utils
@@ -17,8 +22,7 @@
       - gcc
       - pkg-config
       - docker
-      - zsh
-      - zsh-syntax-highlighting
+      - vim
     state: present
 
 - name: Include OS-specific tasks (MAC OS)

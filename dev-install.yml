@@ -14,8 +14,14 @@
     kubebuilder_ver: 2.2.0
     # This variable gives us a boolean for deciding whether or not to become root
     should_be_root:  "{{ true if ansible_pkg_mgr != 'homebrew' else false }}"
+    zsh_user: "{{ ansible_user_id }}"
+    zsh_user_group: "{% if ansible_os_family == 'Darwin' %}staff{% else %}{{ zsh_user }}{% endif %}"
+    zshrc_path: "{{ ansible_env.HOME }}/.zshrc"
+    zsh_ohmy_theme: clean
+    GOPATH: "{{ ansible_env.HOME }}/go"
 
   roles:
+    - role: vaulttec.zsh
     - role: setup
       become: "{{ should_be_root }}"
     - role: fubarhouse.golang
@@ -24,10 +30,9 @@
       vars:
         # go_version: 1.14.2
         GO111MODULE: "on"
-        GOPATH: "{{ ansible_env.HOME }}/go"
         go_install_clean: false
         # shell prof must be absolute path, need to parameterize or make dynamic
-        golang_shell_profile: "{{ ansible_env.HOME }}/.profile"
+        golang_shell_profile: "{{ zshrc_path }}"
         mode_codebase: 0755
         mode_workspace: 0755
         # go libraries
@@ -44,14 +49,17 @@
           - name: protoc-gen-go
             url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
             modules: true
-
+    
     - role: andrewrothstein.kubectl
       when: ansible_facts['os_family'] != "Darwin"
 
-    - role: kubebuilder 
+    - role: kubebuilder
 
-    - role: andrewrothstein.k9s
-      when: ansible_facts['os_family'] != "Darwin"
+    - role: permissions
+      become: yes
+
+    # - role: andrewrothstein.k9s
+    #   when: ansible_facts['os_family'] != "Darwin"
 
     # - role: diodonfrost.terraform
     #   become: "{{ should_be_root }}"

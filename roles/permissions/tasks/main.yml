@@ -1,0 +1,52 @@
+- name: Set zshrc directory permissions
+  file:
+    name: "{{ zshrc_path }}"
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user_group }}"
+  changed_when: false
+
+- name: Set oh-my-zsh directory permissions
+  file:
+    name: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user_group }}"
+    recurse: yes
+  changed_when: false
+
+- name: Set GOPATH directory permissions
+  file:
+    name: "{{ GOPATH }}"
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user_group }}"
+    recurse: yes
+  changed_when: false
+
+- name: Export GOPATH in zshrc
+  lineinfile:
+    dest: "{{ zshrc_path }}"
+    line: "export PATH={{ GOPATH }}:{{ GOPATH}}/bin:$PATH"
+    state: present
+
+- name: Export GO111MODULE in zshrc
+  lineinfile:
+    dest: "{{ zshrc_path }}"
+    line: "export GO111MODULE=on"
+    state: present
+
+- name: Export GOPRIVATE in zshrc
+  lineinfile:
+    dest: "{{ zshrc_path }}"
+    line: "export GOPRIVATE=wwwin-github.cisco.com/slimshady"
+    state: present
+
+- name: Get path to ZSH
+  command: which zsh
+  register: zsh_path
+  changed_when: no
+  check_mode: no
+
+- name: Switch to zsh
+  user:
+    name: "{{ zsh_user }}"
+    shell: "{{ zsh_path.stdout }}"
+
