@@ -1,8 +1,22 @@
 # ansible-k8s-dev
 
-Playbook to install libs needed for k8s development
+Playbook to install libs needed for k8s development. This includes:
+
+- zsh
+  - oh-my-zsh
+- protoc
+- Golang
+  - controller-gen
+  - mock-gen
+  - kind
+  - protoc-gen-go
+- kubectl
+- kubebuilder
+- k9s
+- terraform
 
 ## Prerequisites
+
 - Python
 - Ansible 2.8+
 
@@ -12,11 +26,3 @@ Playbook to install libs needed for k8s development
 ansible-galaxy install -r requirements.yml
 ansible-playbook dev-install.yml -u $USER --ask-become-pass
 ```
-
-### TODOs
-- be flexible with bash/zsh
-- export GO111MODULE: "on" to profile
-- repair shell after completion for root-sensitive roles
-- awscli
-- java
-- zsh

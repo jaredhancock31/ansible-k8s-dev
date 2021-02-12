@@ -22,11 +22,12 @@
 
   roles:
     - role: vaulttec.zsh
+
     - role: setup
       become: "{{ should_be_root }}"
+
     - role: fubarhouse.golang
       become: yes
-      
       vars:
         # go_version: 1.14.2
         GO111MODULE: "on"
@@ -58,12 +59,11 @@
     - role: permissions
       become: yes
 
-    # - role: andrewrothstein.k9s
-    #   when: ansible_facts['os_family'] != "Darwin"
+    - role: andrewrothstein.k9s
+      when: ansible_facts['os_family'] != "Darwin"
 
-    # - role: diodonfrost.terraform
-    #   become: "{{ should_be_root }}"
+    - role: diodonfrost.terraform
+      become: "{{ should_be_root }}"
 
-# https://github.com/vaulttec/ansible-role-zsh
 #  PATH=$PATH:/usr/local/kubebuilder/bin:/usr/local/go/bin:/usr/local/protoc/bin:/root/go/bin
 
