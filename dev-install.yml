@@ -1,6 +1,6 @@
 ---
 
-- name: PLAY
+- name: Aegis dev environment bootstrap
   hosts: localhost
   connection: local
   vars:
@@ -12,7 +12,6 @@
     controller_gen_version: 0.2.5
     kubectl_ver: v1.18.8
     kubebuilder_ver: 2.2.0
-    # This variable gives us a boolean for deciding whether or not to become root
     should_be_root:  "{{ true if ansible_pkg_mgr != 'homebrew' else false }}"
     zsh_user: "{{ ansible_user_id }}"
     zsh_user_group: "{% if ansible_os_family == 'Darwin' %}staff{% else %}{{ zsh_user }}{% endif %}"
@@ -21,12 +20,16 @@
     GOPATH: "{{ ansible_env.HOME }}/go"
 
   roles:
+    # Force zsh if using bash. Makes exports a lot smoother
     - role: vaulttec.zsh
       when: ansible_facts['os_family'] != "Darwin"
 
-    - role: setup
+    # installs binaries via pkg manager (homebrew/apt), installs protoc
+    - role: common
       become: "{{ should_be_root }}"
 
+    # golang install along with some packages where it is crucial to have specific versions.
+    # to wipe out previous installs, set 'go_install_clean' to true
     - role: fubarhouse.golang
       become: yes
       vars:
@@ -52,19 +55,23 @@
             url: "github.com/golang/protobuf/protoc-gen-go@v{{ proto_gen_go_version }}"
             modules: true
     
+    # kubectl
     - role: andrewrothstein.kubectl
       when: ansible_facts['os_family'] != "Darwin"
 
+    # this needs to be installed after golang
     - role: kubebuilder
 
+    # ensures that anything installed as root is chowned back to the $user (e.g. GOPATH, zshrc)
     - role: permissions
       become: yes
 
+    # k9s, because it makes life easier. 
+    # note: for mac this is taken care of by homebrew already. probably should refactor so that it's cleaner
     - role: andrewrothstein.k9s
       when: ansible_facts['os_family'] != "Darwin"
 
+    # terraform
     - role: diodonfrost.terraform
       become: "{{ should_be_root }}"
-
-#  PATH=$PATH:/usr/local/kubebuilder/bin:/usr/local/go/bin:/usr/local/protoc/bin:/root/go/bin
 
