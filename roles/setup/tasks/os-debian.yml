@@ -6,7 +6,7 @@
 
 - name: "Debian | Install dependencies"
   apt:
-    pkg: [ 'libzmq3-dev', 'tar' ]
+    pkg: [ 'libzmq3-dev', 'tar', 'software-properties-common' ]
     state: present
   register: apt_result
   until: apt_result is success
