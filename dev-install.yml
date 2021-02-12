@@ -22,6 +22,7 @@
 
   roles:
     - role: vaulttec.zsh
+      when: ansible_facts['os_family'] != "Darwin"
 
     - role: setup
       become: "{{ should_be_root }}"

@@ -5,6 +5,8 @@ Playbook to install libs needed for k8s development. This includes:
 - zsh
   - oh-my-zsh
 - protoc
+- docker
+- zeromq
 - Golang
   - controller-gen
   - mock-gen
