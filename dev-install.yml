@@ -28,6 +28,8 @@
     - role: common
       become: "{{ should_be_root }}"
 
+    - role: docker
+
     # golang install along with some packages where it is crucial to have specific versions.
     # to wipe out previous installs, set 'go_install_clean' to true
     - role: fubarhouse.golang
