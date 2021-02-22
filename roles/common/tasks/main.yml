@@ -21,7 +21,6 @@
       - wget
       - gcc
       - pkg-config
-      - docker
       - vim
     state: present
 
