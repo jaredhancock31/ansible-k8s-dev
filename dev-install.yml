@@ -59,6 +59,9 @@
     - role: andrewrothstein.kubectl
       when: ansible_facts['os_family'] != "Darwin"
 
+    # helm
+    - role: andrewrothstein.kubernetes-helm
+
     # this needs to be installed after golang
     - role: kubebuilder
 
