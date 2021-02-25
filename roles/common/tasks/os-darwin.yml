@@ -40,3 +40,10 @@
     state: latest
   tags:
     - brew
+
+- name: MacOS | Install awscli
+  homebrew:
+    name: awscli
+    state: latest
+  tags:
+    - brew

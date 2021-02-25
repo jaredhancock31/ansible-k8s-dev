@@ -80,3 +80,6 @@
     - role: diodonfrost.terraform
       become: "{{ should_be_root }}"
 
+    # awscli
+    - role: christiangda.awscli
+      when: ansible_facts['os_family'] != "Darwin"
