@@ -16,6 +16,7 @@ Playbook to install libs needed for k8s development. This includes:
 - kubebuilder
 - k9s
 - terraform
+- awscli
 
 ## Prerequisites
 

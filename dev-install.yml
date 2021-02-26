@@ -79,4 +79,3 @@
     # terraform
     - role: diodonfrost.terraform
       become: "{{ should_be_root }}"
-
